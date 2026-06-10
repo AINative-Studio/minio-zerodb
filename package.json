@@ -1,0 +1,68 @@
+{
+  "name": "minio-zerodb",
+  "version": "1.0.0",
+  "description": "Drop-in MinIO replacement pre-configured for ZeroDB S3-compatible cloud storage. Zero config — auto-provisions free storage on first use.",
+  "main": "index.cjs",
+  "module": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.cjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node node_modules/.bin/jest --config jest.config.cjs --forceExit",
+    "test:ci": "node node_modules/.bin/jest --config jest.config.cjs --forceExit --ci"
+  },
+  "keywords": [
+    "minio",
+    "minio-alternative",
+    "s3",
+    "s3-compatible",
+    "object-storage",
+    "file-storage",
+    "cloud-storage",
+    "zerodb",
+    "ainative",
+    "auto-provisioning",
+    "free-storage",
+    "serverless-storage",
+    "ai-storage",
+    "ai-files",
+    "claude",
+    "cursor",
+    "windsurf",
+    "mcp",
+    "agent-storage",
+    "file-upload",
+    "file-download",
+    "presigned-url",
+    "bucket",
+    "blob-storage"
+  ],
+  "author": "AINative Studio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AINative-Studio/minio-zerodb"
+  },
+  "bugs": {
+    "url": "https://github.com/AINative-Studio/minio-zerodb/issues"
+  },
+  "homepage": "https://zerodb.ai",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "@jest/globals": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
