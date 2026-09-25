@@ -111,7 +111,7 @@ describe('auto-provisioning', () => {
     pushMock(200, {
       project_id: 'auto-proj-123',
       api_key: 'auto-key-456',
-      claim_url: 'https://zerodb.ai/claim/abc',
+      claim_url: 'https://example.test/claim/abc',
     });
 
     // Mock listBuckets (which calls _ensureProvisioned)

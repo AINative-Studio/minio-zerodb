@@ -201,7 +201,7 @@ describe('auto-provisioning', () => {
     pushMock(200, {
       project_id: 'auto-proj',
       api_key: 'auto-key',
-      claim_url: 'https://zerodb.ai/claim/abc',
+      claim_url: 'https://example.test/claim/abc',
     });
 
     const s = new ZeroDBStorage();
@@ -238,7 +238,7 @@ describe('auto-provisioning', () => {
     pushMock(200, {
       project_id: 'p1',
       api_key: 'k1',
-      claim_url: 'https://zerodb.ai/claim/xyz',
+      claim_url: 'https://example.test/claim/xyz',
     });
 
     const s = new ZeroDBStorage();
@@ -247,7 +247,7 @@ describe('auto-provisioning', () => {
     console.log = origLog;
     const allOutput = logs.join('\n');
     assert.ok(allOutput.includes('auto-provisioned'));
-    assert.ok(allOutput.includes('https://zerodb.ai/claim/xyz'));
+    assert.ok(allOutput.includes('https://example.test/claim/xyz'));
   });
 
   it('does not log when no claim URL', async () => {
@@ -370,7 +370,7 @@ describe('getObject', () => {
     // Mock _findFileId => list files
     pushMock(200, [{ file_id: 'dl-1', file_key: 'data.txt', size_bytes: 5 }]);
     // Mock download info
-    pushMock(200, { download_url: 'https://cdn.zerodb.ai/dl/data.txt' });
+    pushMock(200, { download_url: 'https://cdn.example.test/dl/data.txt' });
     // Mock actual download
     pushMock(200, 'hello', 'text/plain');
 
@@ -398,7 +398,7 @@ describe('getObject', () => {
 
   it('throws when download HTTP request fails', async () => {
     pushMock(200, [{ file_id: 'dl-2', file_key: 'bad.txt' }]);
-    pushMock(200, { download_url: 'https://cdn.zerodb.ai/dl/bad.txt' });
+    pushMock(200, { download_url: 'https://cdn.example.test/dl/bad.txt' });
     pushMock(404, 'Not Found', 'text/plain');
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
@@ -413,7 +413,7 @@ describe('getObject', () => {
 
   it('handles non-default bucket key prefix', async () => {
     pushMock(200, [{ file_id: 'dl-3', file_key: 'photos/pic.jpg' }]);
-    pushMock(200, { download_url: 'https://cdn.zerodb.ai/dl/pic.jpg' });
+    pushMock(200, { download_url: 'https://cdn.example.test/dl/pic.jpg' });
     pushMock(200, 'imgdata', 'image/jpeg');
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
@@ -429,7 +429,7 @@ describe('getObject', () => {
 describe('downloadFile', () => {
   it('delegates to getObject with default bucket', async () => {
     pushMock(200, [{ file_id: 'dl-c', file_key: 'doc.pdf' }]);
-    pushMock(200, { download_url: 'https://cdn.zerodb.ai/dl/doc.pdf' });
+    pushMock(200, { download_url: 'https://cdn.example.test/dl/doc.pdf' });
     pushMock(200, 'pdfcontent', 'application/pdf');
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
@@ -445,22 +445,22 @@ describe('downloadFile', () => {
 describe('presignedGetObject', () => {
   it('returns presigned_url', async () => {
     pushMock(200, [{ file_id: 'ps-1', file_key: 'secret.txt' }]);
-    pushMock(200, { presigned_url: 'https://cdn.zerodb.ai/presigned/secret.txt?token=abc' });
+    pushMock(200, { presigned_url: 'https://cdn.example.test/presigned/secret.txt?token=abc' });
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
     const url = await s.presignedGetObject('default', 'secret.txt', 7200);
 
-    assert.equal(url, 'https://cdn.zerodb.ai/presigned/secret.txt?token=abc');
+    assert.equal(url, 'https://cdn.example.test/presigned/secret.txt?token=abc');
   });
 
   it('falls back to result.url when presigned_url missing', async () => {
     pushMock(200, [{ file_id: 'ps-2', file_key: 'alt.txt' }]);
-    pushMock(200, { url: 'https://cdn.zerodb.ai/url/alt.txt' });
+    pushMock(200, { url: 'https://cdn.example.test/url/alt.txt' });
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
     const url = await s.presignedGetObject('default', 'alt.txt');
 
-    assert.equal(url, 'https://cdn.zerodb.ai/url/alt.txt');
+    assert.equal(url, 'https://cdn.example.test/url/alt.txt');
   });
 
   it('throws NoSuchKey when file not found', async () => {
@@ -496,11 +496,11 @@ describe('presignedGetObject', () => {
 describe('getUrl', () => {
   it('delegates to presignedGetObject with default bucket', async () => {
     pushMock(200, [{ file_id: 'gu-1', file_key: 'file.txt' }]);
-    pushMock(200, { presigned_url: 'https://cdn.zerodb.ai/u' });
+    pushMock(200, { presigned_url: 'https://cdn.example.test/u' });
 
     const s = new ZeroDBStorage({ accessKey: 'k', projectId: 'p' });
     const url = await s.getUrl('file.txt', 600);
-    assert.equal(url, 'https://cdn.zerodb.ai/u');
+    assert.equal(url, 'https://cdn.example.test/u');
   });
 });
 
