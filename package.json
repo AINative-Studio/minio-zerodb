@@ -18,8 +18,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node node_modules/.bin/jest --config jest.config.cjs --forceExit",
-    "test:ci": "node node_modules/.bin/jest --config jest.config.cjs --forceExit --ci"
+    "test": "node node_modules/.bin/jest --config jest.config.cjs --forceExit && node --test tests/coverage.test.cjs",
+    "test:jest": "node node_modules/.bin/jest --config jest.config.cjs --forceExit",
+    "test:coverage": "node --test tests/coverage.test.cjs",
+    "test:ci": "node node_modules/.bin/jest --config jest.config.cjs --forceExit --ci && node --test tests/coverage.test.cjs"
   },
   "keywords": [
     "minio",
