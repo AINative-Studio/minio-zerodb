@@ -1,6 +1,6 @@
 {
   "name": "minio-zerodb",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Drop-in MinIO replacement pre-configured for ZeroDB S3-compatible cloud storage. Zero config — auto-provisions free storage on first use.",
   "main": "index.cjs",
   "module": "index.js",
